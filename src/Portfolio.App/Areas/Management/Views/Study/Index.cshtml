@@ -1,0 +1,50 @@
+﻿@model List<StudyModel>
+
+@{
+    string sectionType = "Study";
+}
+<section class="section contains-add-btn">
+    <partial name="../Shared/Partial/_alertsPartial.cshtml" />
+
+    <partial name="../Shared/Partial/_modalHolderPartial.cshtml" />
+
+
+    <div class="container">
+        <partial name="../Shared/Partial/_createBtnPartial.cshtml" />
+
+        @if (Model.Count < 1)
+        {
+            <partial name="../Shared/Partial/_noItemYetPartial.cshtml" for="@sectionType" />
+        }
+        else
+        {
+            @Html.Raw(ViewBag.table)
+        }
+    </div>
+</section>
+@section Scripts{
+
+    <script>
+        const createModalUrl = '/Management/Study/loadCreateModal';
+        const updateModalUrl = '/Management/Study/loadUpdateModal';
+        const deleteModalUrl = '/Management/Study/loadDeleteModal';
+
+
+        var createBtn = $("#management-add-btn");
+        var updateBtns = document.querySelectorAll('.update-btn');
+        var deleteBtns = document.querySelectorAll('.delete-btn');
+
+        $(document).ajaxComplete(function () {
+            $.validator.unobtrusive.parse(document);
+        });
+
+
+
+        setSideNav("Study");
+        AttachModalCreateListener(createModalUrl);
+        AttachTableModalListeners(updateBtns, updateModalUrl);
+        AttachTableModalListeners(deleteBtns, deleteModalUrl);
+
+
+    </script>
+}

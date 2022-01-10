@@ -1,0 +1,186 @@
+﻿@model List<SkillModel>
+@{
+    ViewData["Title"] = "Skills management";
+    string sectionType = "Skill";
+
+}
+<section class="section contains-add-btn">
+    <partial name="../Shared/Partial/_alertsPartial.cshtml" />
+
+    <partial name="../Shared/Partial/_modalHolderPartial.cshtml" />
+
+
+    <div class="container">
+        <partial name="../Shared/Partial/_createBtnPartial.cshtml" />
+
+        @if (Model.Count < 1)
+        {
+            <partial name="../Shared/Partial/_noItemYetPartial.cshtml" for="@sectionType" />
+        }
+        else
+        {
+            <div id="skill-management" class="section-management outer-shadow">
+                <div class="skill-item">
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-1">
+                                <label asp-for="@Model[0].Priority" class="control-label text-left"></label>
+                            </div>
+                            <div class="col-3">
+                                <label asp-for="@Model[0].Name" class="control-label text-left"></label>
+                            </div>
+                            <div class="col-4">
+                                <label asp-for="@Model[0].Level" class="control-label text-left"></label>
+                            </div>
+                            <div class="col-4">
+                                <label class="control-label text-left">Actions</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                @foreach (var skill in Model)
+                {
+                    <div class="skill-item">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <input type="hidden" asp-for="@skill.Id" class="skill-id" />
+
+                                <div class="col-1">
+                                    <div class="priority">
+                                        <span>
+                                            @skill.Priority
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <input asp-for="@skill.Name" class="form-control skill-name-input" />
+                                    <span asp-validation-for="@skill.Name" class="text-danger"></span>
+                                </div>
+
+                                <div class="col-4 range-container px-5">
+                                    <div class="range">
+                                        <div class="slider-value">
+                                            <span>50</span>
+                                        </div>
+                                        <div class="field form-group">
+
+                                            <input asp-for="@skill.Level" type="range" min="0" max="100" value="@skill.Level" step="10" disabled="disabled" class="skill-level-input form-control" />
+                                            <div class="value right">@skill.Level %</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <div class="form-group m-auto">
+                                                <a class="form-control btn-warning text-white w-75 update-btn" value="Update">
+                                                    <i class="fa fa-pen" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <div class="form-group m-auto">
+                                                <a class="form-control btn-danger text-white w-75 delete-btn" value="Delete">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                }
+
+
+            </div>
+        }
+    </div>
+</section>
+
+
+@section Scripts{
+    <script>
+        const createModalUrl = '/Management/skills/loadCreateModal';
+        const updateModalUrl = '/Management/skills/loadUpdateModal';
+        const deleteModalUrl = '/Management/skills/loadDeleteModal';
+
+
+        var createBtn = $("#management-add-btn");
+        var updateBtns = document.querySelectorAll('.update-btn');
+        var deleteBtns = document.querySelectorAll('.delete-btn');
+
+        $(document).ajaxComplete(function () {
+            $.validator.unobtrusive.parse(document);
+        });
+
+        setSideNav("Skill");
+        AddCreateModalListener()
+        AttachOtherModalListeners(updateBtns, updateModalUrl);
+        AttachOtherModalListeners(deleteBtns, deleteModalUrl);
+
+        function AttachOtherModalListeners(buttons, url) {
+            buttons.forEach((btn) => {
+                $(btn).on('click', () => {
+                    let parentContainer = btn.closest(".skill-item");
+                    let skillId = parentContainer.querySelector(".skill-id").value;
+                    console.log(skillId )
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        contentType: "application/json; charset=utf-8",
+                        data: { Id: skillId },
+                        datatype: "json",
+                        success: function (result) {
+                            $("#management-modal").modal("show")
+                            $(' #management-modal .modal-content').html(result);
+                            if (url.includes("Update")) {
+                                AttachSliderListeners();
+                            }
+                        },
+                        error: function (data) {
+                            alert("Error loading dynamic data");
+                            console.log(data)
+                        }
+                    });
+                })
+            })
+        }
+
+        function AddCreateModalListener() {
+            $(createBtn).on('click', function () {
+                var options = { "backdrop": "static", keyboard: true };
+                $.ajax({
+                    type: "GET",
+                    url: createModalUrl,
+                    contentType: "application/json; charset=utf-8",
+                    datatype: "json",
+                    success: function (result) {
+                        $("#management-modal").modal("show")
+                        $(' #management-modal .modal-content').html(result);
+                        AttachSliderListeners();
+                    },
+                    error: function (data) {
+                        alert("Error loading dynamic data");
+                    }
+                });
+            });
+        }
+
+        function AttachSliderListeners() {
+            var inputSliders = document.querySelectorAll(".range .field input");
+            inputSliders.forEach((input) => {
+                input.oninput = (() => {
+                    var slideValue = input.parentElement.children[1]
+                    let value = input.value;
+                    slideValue.textContent = value + " % ";
+                })
+            })
+        }
+    </script>
+}

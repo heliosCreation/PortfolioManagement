@@ -1,0 +1,57 @@
+﻿@model ContactModel
+@{
+    var displayer = Model;
+    if (Model == null)
+    {
+        displayer = new ContactModel
+        {
+            Email = "DummyData@gmail.com",
+            Location = "dummy data",
+            PhoneNumber = "00000000000"
+        };
+    }
+}
+<section class="contact-section section" id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="section-title">
+                <h2 data-heading="Get in touch">Contact</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <!--contact items start-->
+            <div class="contact-item">
+                <div class="contact-item-inner outer-shadow">
+                    <div class="contact-icon-container">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <span>Telephone</span>
+                    <p>@displayer.PhoneNumber</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-item-inner outer-shadow">
+                    <div class="contact-icon-container">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <span>Email</span>
+                    <p>@displayer.Email</p>
+                </div>
+            </div>
+
+            <div class="contact-item">
+                <div class="contact-item-inner outer-shadow">
+                    <div class="contact-icon-container">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <span>Location</span>
+                    <p>@displayer.Location</p>
+                </div>
+            </div>
+            <!--contact items ends-->
+
+        </div>
+    </div>
+</section>

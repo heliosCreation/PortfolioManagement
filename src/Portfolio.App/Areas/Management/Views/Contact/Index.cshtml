@@ -1,0 +1,54 @@
+﻿@model ContactModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<section class="section">
+    <partial name="../Shared/Partial/_alertsPartial.cshtml" />
+
+    <partial name="../Shared/Partial/_modalHolderPartial.cshtml" />
+
+    <div class="container">
+        <div class="section-management outer-shadow row">
+
+            <form asp-controller="Contact" asp-action="Crupdate" method="post" class="h-100">
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Email" class="col-8 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Location" class="col-8 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Location" class="form-control">
+                        <span asp-validation-for="Location" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="col-8 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="PhoneNumber" class="form-control" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group w-25 m-auto h-25">
+                    <input class="form-control btn-success" type="submit" value="Send" />
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+
+    <script>
+        setSideNav("Contact");
+    </script>
+}

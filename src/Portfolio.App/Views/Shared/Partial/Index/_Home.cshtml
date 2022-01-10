@@ -1,0 +1,50 @@
+﻿@model HomeMainDisplayModel
+@{ 
+    var displayer = Model;
+    if (Model == null)
+    {
+        displayer = new HomeMainDisplayModel
+        {
+            CoverUrl = "https://freesvg.org/img/abstract-user-flat-1.png",
+            h1 = "Dummy data",
+            h4 = "Dummy data",
+            p = "Dummy data",
+            Logo = "X"
+        };
+    }
+}
+
+<section class="home-section section active" id="home">
+    <!-- Wrap effects-->
+    <div class="effect-wrap">
+        <div class="effect effect-1"></div>
+        <div class="effect effect-2">
+            @for (int i = 0; i < 28; i++)
+            {
+                <div></div>
+            }
+        </div>
+        <div class="effect-3"></div>
+        <div class="effect-4"></div>
+    </div>
+    <div class="container">
+        <div class="row align-items-center full-screen">
+            <div class="home-text">
+                <p>@displayer.p</p>
+                <h1>@displayer.h1</h1>
+                <h4>@displayer.h4</h4>
+                <a href="#about" class="link-item btn-1 outer-shadow hover-in-shadow scroll">More about me</a>
+            </div>
+
+            <div class="home-img">
+                <div class="img-box inner-shadow">
+                    <img class="outer-shadow"
+                         src="@(displayer.CoverUrl == null ||
+                                displayer.CoverUrl == string.Empty ?
+                                "https://freesvg.org/img/abstract-user-flat-1.png" : displayer.CoverUrl)"
+                         alt="profile-picture" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

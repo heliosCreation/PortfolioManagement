@@ -1,0 +1,41 @@
+﻿@model List<InspirationModel>
+
+<section class="inspiration-section section" id="inspiration">
+    <div class="container">
+        <div class="row">
+            <div class="section-title">
+                <h2 data-heading="Inspiration">My state of mind</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="inspiration-box">
+                <div class="inspiration-slider outer-shadow">
+                    <div class="inspiration-slider-container">
+                        @foreach(var item in Model)
+                        {
+
+                            <!--Inspiration item start-->
+                            <div class="inspiration-item">
+                                <i class="fas fa-quote-left left"></i>
+                                <i class="fas fa-quote-right right"></i>
+                                <p>
+                                    @item.Quote
+                                </p>
+                                <span class="author">- @item.Author</span>
+                                <div class="inspiration-fire-container inner-shadow ">
+                                    <i class="fas fa-fire inspiration-fire"></i>
+                                </div>
+                            </div>
+                            <!-- Inspiration item ends -->
+                        }
+                    </div>
+                </div>
+                <div class="inspiration-slider-nav">
+                    <span class="prev outer-shadow hover-in-shadow"><i class="fas fa-angle-left"></i></span>
+                    <span class="next outer-shadow hover-in-shadow"><i class="fas fa-angle-right"></i></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

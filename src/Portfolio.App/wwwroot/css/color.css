@@ -1,0 +1,9 @@
+﻿:root {
+    --skin-color: #fb839e;
+    --skin-color-transparent: rgba(251, 131, 158,0.7);
+    --green: #6bff6b;
+    --purple: #8a49ff;
+    --light-purple: #664AFF;
+    --light-purple-opacity: #664aff1f;
+    --light-purple-opacity-hovered: #664aff42;
+}

@@ -1,0 +1,280 @@
+﻿@model List<ProjectModel>
+@{
+    ViewData["Title"] = "Manage projects";
+    var sectionType = "Projects";
+}
+
+<section class="section contains-add-btn">
+    <partial name="../Shared/Partial/_alertsPartial.cshtml" />
+
+    <partial name="../Shared/Partial/_modalHolderPartial.cshtml" />
+
+
+    <div class="container">
+        <partial name="../Shared/Partial/_createBtnPartial.cshtml" />
+
+        @if (Model.Count < 1)
+        {
+            <partial name="../Shared/Partial/_noItemYetPartial.cshtml" for="@sectionType" />
+
+        }
+        else
+        {
+            <table class="table table-bordered outer-shadow">
+                <thead class="table-head">
+                    <tr>
+                        <th class="d-none" scope="col"></th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Tools</th>
+                        <th scope="col">Cover</th>
+
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var project in Model)
+                    {
+                        <tr>
+                            <td class="d-none " scope="row">@project.Id</td>
+                            <td>@project.Name</td>
+                            <td>@project.Category</td>
+                            <td>
+                                @{
+                                    var length = project.Tools.Count;
+                                    var tools = project.Tools;
+                                    for (int i = 0; i < length; i++)
+                                    {
+                                        if (i < 3)
+                                        {
+                                            if (length > 1 && project.Tools.FindIndex(p => p.Contains(tools[i])) < length - 1)
+                                            {
+                                                <span>@tools[i], </span>
+                                            }
+                                            else
+                                            {
+                                                <span>@tools[i]</span>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <span> ... </span>
+                                            i = length;
+                                        }
+                                    }
+                                }
+                            </td>
+                            <td>
+                                <div class="table-image">
+                                    <img src="@Url.Content(project.CoverUrl)" />
+                                </div>
+                            </td>
+                            <td>
+                                <a class="btn btn-warning text-white update-btn" data-toggle="modal" data-id="@project.Id"><i class="fas fa-pen"></i></a>
+                                <a class="btn btn-danger text-white delete-btn" data-toggle="modal" data-id="@project.Id"><i class="fas fa-trash"></i></a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+
+</section>
+
+@section Scripts{
+
+    <script>
+
+        const createModalUrl = '/Management/Project/loadCreateModal';
+        const updateModalUrl = '/Management/Project/loadUpdateModal';
+        const deleteModalUrl = '/Management/Project/loadDeleteModal';
+
+        $(window).keydown(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+                addKey();
+                return false;
+            }
+        });
+
+        $(document).ajaxComplete(function () {
+            $.validator.unobtrusive.parse(document);
+        });
+
+        var createBtn = $("#management-add-btn");
+        var updateBtns = document.querySelectorAll('.update-btn');
+        var deleteBtns = document.querySelectorAll('.delete-btn');
+
+        setSideNav("Projects")
+        $(createBtn).on('click', function () {
+            var options = { "backdrop": "static", keyboard: true };
+            $.ajax({
+                type: "GET",
+                url: createModalUrl,
+                contentType: "application/json; charset=utf-8",
+                datatype: "json",
+                success: function (result) {
+                    $("#management-modal").modal("show")
+                    $(' #management-modal .modal-content').html(result);
+                    $(".modal-dialog").addClass("mw-100 w-65");
+                    setCoverListeners();
+                    setGalleryListeners();
+                },
+                error: function (data) {
+                    alert("Error loading dynamic data");
+                }
+            });
+        });
+        AttachModalListeners(updateBtns, updateModalUrl);
+        AttachModalListeners(deleteBtns, deleteModalUrl);
+
+        function AttachModalListeners(buttons, url) {
+            buttons.forEach((btn) => {
+                $(btn).on('click', () => {
+                    let parentContainer = btn.closest("tr");
+                    let targetId = parentContainer.querySelector(".d-none").innerText;
+                    $.ajax({
+                        type: "GET",
+                        url: url,
+                        contentType: "application/json; charset=utf-8",
+                        data: { Id: targetId},
+                        datatype: "json",
+                        success: function (result) {
+                            $("#management-modal").modal("show");
+                            $('#management-modal .modal-content').html(result);
+                            if (/update/i.test(url)) {
+                                $(".modal-dialog").addClass("mw-100 w-65");
+                                setUpdateHandlers();
+                            }
+                            else {
+                                $(".modal-dialog").removeClass("mw-100 w-65");
+
+                            }
+                        },
+                        error: function (data) {
+                            alert("Error loading dynamic data");
+                            console.log(data)
+                        }
+                    });
+                })
+            })
+        }
+
+        function addKey() {
+            let key = $('#keysInput').val()
+            if (key != '') {
+                let tag = document.createElement('span')
+                $(tag).append(key)
+                $(tag).attr('onclick', `$(this).remove();removeKey("${key}");`)
+                $('.addedKeysHolder').append(tag)
+                $('#keysInput').val('')
+                resetKey()
+            }
+        }
+
+        function removeKey() {
+            resetKey()
+        }
+        //Reset all keys
+        function resetKey() {
+            $('#tag-holder').val('')
+            for (let i = 1; i <= $('.addedKeysHolder span').length; i++) {
+                let theKey = $(`.addedKeysHolder span:nth-child(${i})`).text()
+                //console.log(theKey)
+                let prevVal = $('#tag-holder').val() + ','
+                $('#tag-holder').val(prevVal + theKey)
+            }
+            var $j_object = $('.scope-toggler.btn-primary')
+            $j_object.each(function () {
+                let key = $(this).val();
+                //console.log(key);
+                let prevVal = $('#tag-holder').val() + ','
+                $('#tag-holder').val(prevVal + key)
+
+            });
+            $('#keysInput').focus();
+        }
+
+        function setGalleryListeners() {
+            var galleryInput = document.getElementById("gallery-input");
+            var galleryBtn = document.getElementById("gallery-btn");
+
+
+            galleryBtn.addEventListener("click", () => {
+                galleryInput.click();
+            });
+           
+            galleryInput.addEventListener("change", previewImages);
+
+        }
+
+        function previewImages() {
+
+            var preview = document.querySelector('#new-gallery-container');
+
+            if (this.files) {
+                $("#new-gallery-container").empty();
+                [].forEach.call(this.files, readAndPreview);
+            }
+
+            function readAndPreview(file) {
+
+                // Make sure `file.name` matches our extensions criteria
+                if (!/\.(jpe?g|png|gif)$/i.test(file.name)) {
+                    return alert(file.name + " is not an image");
+                } // else...
+
+                var reader = new FileReader();
+
+                reader.addEventListener("load", function () {
+                    addImageToGallery(file.name, this.result, preview);
+                });
+
+                reader.readAsDataURL(file);
+            }
+
+        }
+
+        function addImageToGallery(name, src, container) {
+            var galleryImageHolder = document.createElement("div");
+            galleryImageHolder.className = "gallery-image-preview";
+            var image = new Image();
+            image.title = name;
+            image.src = src;
+            image.className = "gallery-image-preview__image";
+            galleryImageHolder.append(image);
+            container.appendChild(galleryImageHolder);
+        }
+
+        function setUpdateHandlers() {
+            var imagePreview = document.getElementById("image-preview");
+            var imagePreviewImg = document.querySelector(".image-preview__image");
+            var imagePreviewText = document.querySelector(".image-preview__text");
+
+            setCoverListeners();
+            setGalleryListeners();
+            resetKey();
+            if (imagePreviewImg.src != null) {
+                imagePreview.style.border = "none";
+                imagePreviewText.style.display = "none";
+                imagePreviewImg.style.display = "block";
+            }
+
+        }
+
+        function toggleEraser(input) {
+            if (input.checked) {
+                input.parentNode.classList.add("d-block");
+            }
+            else {
+                input.parentNode.classList.remove("d-block");
+            }
+        }
+        
+        $.validator.setDefaults({
+            ignore: false
+        });
+    </script>
+}

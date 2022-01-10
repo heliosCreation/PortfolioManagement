@@ -1,0 +1,50 @@
+﻿@model StudyModel
+
+
+<form asp-controller="Study" asp-action="create">
+    <div class="modal-header">
+        <span class="fire-container inner-shadow">
+            <i class="fas fa-graduation-cap"></i>
+        </span>
+        <h5 class="modal-title">
+            Add a study
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="experience-item row mb-5">
+            <div class="col-6">
+                <label asp-for="SchoolName"></label>
+                <input asp-for="SchoolName" class="form-control" />
+                <span asp-validation-for="SchoolName" class="text-danger"></span>
+            </div>
+
+            <div class="col-6">
+                <label asp-for="Diploma"></label>
+                <input asp-for="Diploma" class="form-control" />
+                <span asp-validation-for="Diploma" class="text-danger"></span>
+            </div>
+
+            <div class="col-6">
+                <label asp-for="From"></label>
+                <input asp-for="From" class="form-control" />
+                <span asp-validation-for="From" class="text-danger"></span>
+            </div>
+
+            <div class="col-6">
+                <label asp-for="To"></label>
+                <input asp-for="To" class="form-control" />
+                <span asp-validation-for="To" class="text-danger"></span>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-success">Create</button>
+    </div>
+
+</form>

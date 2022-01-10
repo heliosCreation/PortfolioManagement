@@ -1,0 +1,48 @@
+﻿@model List<ExperienceModel>
+@{
+    string sectionType = "Experience";
+}
+<section class="section-management section">
+    <partial name="../Shared/Partial/_alertsPartial.cshtml" />
+
+    <partial name="../Shared/Partial/_modalHolderPartial.cshtml" />
+
+
+    <div class="container">
+        <partial name="../Shared/Partial/_createBtnPartial.cshtml" />
+
+        @if (Model.Count < 1)
+        {
+            <partial name="../Shared/Partial/_noItemYetPartial.cshtml" for="@sectionType" />
+
+        }
+        else
+        {
+            @Html.Raw(ViewBag.table);
+        }
+    </div>
+</section>
+
+@section Scripts{
+
+    <script>
+        const createModalUrl = '/Management/Experience/loadCreateModal';
+        const updateModalUrl = '/Management/Experience/loadUpdateModal';
+        const deleteModalUrl = '/Management/Experience/loadDeleteModal';
+
+
+        $(document).ajaxComplete(function () {
+            $.validator.unobtrusive.parse(document);
+        });
+
+        var createBtn = $("#management-add-btn");
+        var updateBtns = document.querySelectorAll('.update-btn');
+        var deleteBtns = document.querySelectorAll('.delete-btn');
+
+        setSideNav("Experience");
+        AttachModalCreateListener(createModalUrl);
+        AttachTableModalListeners(updateBtns, updateModalUrl);
+        AttachTableModalListeners(deleteBtns, deleteModalUrl);
+
+    </script>
+}

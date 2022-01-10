@@ -1,0 +1,67 @@
+﻿@using System;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Portfolio</title>
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/color.css" />
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/css/Management.css" />
+    <link href="~/css/responsive.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Header starts -->
+    <div id="wrapper" class="menuDisplayed">
+        <partial name="../Shared/Partial/_SidebarPartial.cshtml" />
+        <!-- Navigation starts -->
+        <nav class="nav-menu">
+            <div class="close-nav-menu outer-shadow hover-in-shadow">&times;</div>
+            <div class="nav-menu-inner">
+                <ul>
+                    <li><a href="#home" class="link-item inner-shadow active">Home</a></li>
+                    <li><a href="#about" class="link-item outer-shadow hover-in-shadow">About</a></li>
+                    <li><a href="#service" class="link-item outer-shadow hover-in-shadow">Services</a></li>
+                    <li><a href="#portfolio" class="link-item outer-shadow hover-in-shadow">Portfolio</a></li>
+                    <li><a href="#inspiration" class="link-item outer-shadow hover-in-shadow">Inspiration</a></li>
+                    <li><a href="#contact" class="link-item outer-shadow hover-in-shadow">Contact me</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- Navigation ends -->
+        <btn class="logout-btn ml-auto">
+            <i class="fa fa-sign-out-alt"></i>
+            <a asp-area="Identity" asp-controller="Account" asp-action="Logout">
+                Logout
+            </a>
+        </btn>
+
+
+        <div id="page-content-wrapper">
+
+            <main role="main">
+                <div class="col-12">
+                    @RenderBody()
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Header ends -->
+
+    <div class="fade-out-effect"></div>
+
+
+    @RenderBody()
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/js/Management.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

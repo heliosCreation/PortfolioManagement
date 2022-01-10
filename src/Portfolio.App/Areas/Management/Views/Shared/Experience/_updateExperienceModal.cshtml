@@ -1,0 +1,56 @@
+﻿@model ExperienceModel
+
+<form asp-controller="Experience" asp-action="update">
+    <div class="modal-header">
+        <span class="fire-container inner-shadow">
+            <i class="fas fa-briefcase"></i>
+        </span>
+        <h5 class="modal-title">
+            Update your Experience
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="experience-item row mb-5">
+            <input type="hidden" asp-for="Id"/>
+            <div class="col-6">
+                <label asp-for="CompanyName"></label>
+                <input asp-for="CompanyName" class="form-control" />
+                <span asp-validation-for="CompanyName" class="text-danger"></span>
+            </div>
+
+            <div class="col-6">
+                <label asp-for="PositionName"></label>
+                <input asp-for="PositionName" class="form-control" />
+                <span asp-validation-for="PositionName" class="text-danger"></span>
+            </div>
+
+            <div class="col-6">
+                <label asp-for="From"></label>
+                <input asp-for="From" class="form-control" />
+                <span asp-validation-for="From" class="text-danger"></span>
+            </div>
+
+            <div class="col-6">
+                <label asp-for="To"></label>
+                <input asp-for="To" class="form-control" />
+                <span asp-validation-for="To" class="text-danger"></span>
+            </div>
+
+            <div class="col-12 mt-3">
+                <label asp-for="Details"></label>
+                <textarea rows="3" asp-for="Details" class="form-control"></textarea>
+                <span asp-validation-for="Details" class="text-danger"></span>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-success">Update</button>
+    </div>
+
+</form>

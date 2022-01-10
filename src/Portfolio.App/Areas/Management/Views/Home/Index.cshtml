@@ -1,0 +1,100 @@
+﻿@model HomeMainDisplayModel
+
+
+<section class="section">
+
+    <partial name="../Shared/Partial/_alertsPartial.cshtml" />
+
+    <div class="container">
+        <div class="section-management outer-shadow">
+
+            <form asp-controller="Home" asp-action="@(Model == null? "Create": "Update")" method="post" enctype="multipart/form-data" class="h-100">
+
+                <div class="row h-75">
+                    <div class="col-6">
+                        <div class="form-group">
+                            <label asp-for="Logo" class="col-8 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="Logo" class="form-control" />
+                                <span asp-validation-for="Logo" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label asp-for="p" class="col-8 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="p" class="form-control" />
+                                <span asp-validation-for="p" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label asp-for="h1" class="col-8 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="h1" class="form-control" />
+                                <span asp-validation-for="h1" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="h4" class="col-8 control-label"></label>
+                            <div class="col-md-10">
+                                <input asp-for="h4" class="form-control" />
+                                <span asp-validation-for="h4" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6">
+                        <input type="hidden" asp-for="CoverUrl" />
+                            <label asp-for="CoverUrl" class="w-100"></label>
+                            <div id="image-preview" class="mb-2">
+                                @if (Model != null)
+                                {
+                                    <img src="@(Model.CoverUrl != null ?  Model.CoverUrl : "https://freesvg.org/img/abstract-user-flat-1.png")" alt="Image preview" class="image-preview__image" />
+                                }
+                                else
+                                {
+                                    <img src="https://freesvg.org/img/abstract-user-flat-1.png" alt="Image preview" class="image-preview__image" />
+                                }
+                                <span class="image-preview__text">Image preview</span>
+                                <div class="file-name centered">Test text</div>
+                            </div>
+                            <input id="cover-input" asp-for="CoverFile" hidden />
+                            <button id="cover-btn" type="button" class="btn-1 btn-file hover-in-shadow outer-shadow"> Choose a file </button>
+                            <span asp-validation-for="CoverFile" class="text-danger"></span>
+                    </div>
+
+                </div>
+                <div class="row h-25">
+                    <input class="form-control btn-success w-25 m-auto " type="submit" value="Send" />
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+
+    <script>
+
+        (() => {
+            setSideNav("Home");
+            setCoverListeners();
+
+
+            var imagePreview = document.getElementById("image-preview");
+            var imagePreviewImg = document.querySelector(".image-preview__image");
+            var imagePreviewText = document.querySelector(".image-preview__text");
+
+            if (imagePreviewImg.getAttribute('src') != "#") {
+
+                imagePreview.style.border = "none";
+                imagePreviewText.style.display = "none";
+                imagePreviewImg.style.display = "block";
+
+            }
+        })()
+
+    </script>
+}

@@ -1,0 +1,93 @@
+﻿@model CreateProjectModel
+
+
+<form asp-controller="Project" asp-action="create" enctype="multipart/form-data">
+    <div class="modal-header">
+        <span class="fire-container inner-shadow">
+            <i class="fab fa-battle-net"></i>
+        </span>
+        <h5 class="modal-title">
+            Add a Project
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <div class="management-item row">
+            <div class="col-6 text-left">
+                <label asp-for="Name"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="col-6 text-left">
+                <label asp-for="CategoryId"></label>
+                <select asp-for="CategoryId" class="form-control" asp-items="@(new SelectList(Model.Categories,"Id","Name"))">
+                    <option disabled selected>Choose a category</option>
+                </select>
+                <span asp-validation-for="CategoryId" class="text-danger"></span>
+            </div>
+            <div class="col-12 text-center">
+                <label asp-for="Description"></label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="col-12 text-center">
+                <label asp-for="GithubLink"></label>
+                <input asp-for="GithubLink" class="form-control" />
+                <span asp-validation-for="GithubLink" class="text-danger"></span>
+            </div>
+            <div class="col-12 text-center">
+                <label asp-for="Tools"></label>
+                <div class="keyHandler centered">
+                    <input type="text" placeholder="Keyword + Enter" id="keysInput">
+                </div>
+                <div class="addedKeysHolder"></div>
+
+
+                <!-- Just give this input the name="etc" attribute -->
+                <input id="tag-holder" asp-for="ToolsString" type="hidden">
+            </div>
+
+            <div class="card w-100">
+                <div class="card-header">
+                    <button class="btn w-100 collapsed" type="button" data-toggle="collapse" data-target="#collapse-images" aria-expanded="false" aria-controls="collapseThree">
+                        <strong class="h5">Images management <i class="fas fa-caret-down"></i></strong>
+                    </button>
+                </div>
+            </div>
+            <div class="collapse multi-collapse  p-2 w-100" id="collapse-images">
+                <div class="col-12 p-3 text-center">
+                    <label asp-for="CoverFile" class="w-100"></label>
+                    <div id="image-preview" class="centered mb-2">
+                        <img src="" alt="Image preview" class="image-preview__image" />
+                        <span class="image-preview__text">Image preview</span>
+                        <div class="file-name centered">Test text</div>
+                    </div>
+                    <input id="cover-input" asp-for="CoverFile" hidden />
+                    <button id="cover-btn" type="button" class="btn-1 btn-file hover-in-shadow outer-shadow white"> Choose a file </button>
+                    <input type="hidden" asp-for="CoverFile" />
+                    <span asp-validation-for="CoverFile" class="text-danger"></span>
+                </div>
+                <div class="col-12 p-3 text-center">
+                    <label asp-for="GalleryFiles" class="w-100"></label>
+
+                    <div id="new-gallery-container" class="centered row">
+
+                    </div>
+                    <input id="gallery-input" asp-for="GalleryFiles" hidden />
+                    <button id="gallery-btn" type="button" class="btn-1 btn-file hover-in-shadow outer-shadow white"> Choose the files of your project </button>
+                    <span asp-validation-for="GalleryFiles" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" id="save" class="btn btn-outline-success">Create</button>
+    </div>
+
+</form>

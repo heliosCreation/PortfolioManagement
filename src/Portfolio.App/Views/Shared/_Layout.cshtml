@@ -1,0 +1,92 @@
+﻿@using System;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Portfolio</title>
+    <link href="~/lib/font-awesome/css/all.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/color.css" />
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link href="~/css/responsive.css" rel="stylesheet" />
+</head>
+<body>
+    <!-- Header starts -->
+    <header class="header">
+        <div class="container">
+            <div class="row justify-content-between">
+                <div class="logo">
+                    @{ 
+                        var LogoLength = ViewBag.Logo.Length;
+                        var width = "40px";
+                        if (LogoLength > 3)
+                        {
+                            var multiplicator = LogoLength - 3;
+                            width = ((20 * multiplicator) + 40).ToString() + "px";
+                        }
+                    }
+                    <a class="link-item" style="width:@width" asp-area="" asp-controller="Home" asp-action="Index">@ViewBag.Logo</a>
+                </div>
+
+                <div class="icons hamburger-btn outer-shadow hover-in-shadow">
+                    <span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header ends -->
+    <!-- Navigation starts -->
+    <nav class="nav-menu">
+        <div class="close-nav-menu outer-shadow hover-in-shadow">&times;</div>
+        <div class="nav-menu-inner">
+            <ul>
+                <li><a href="#home" class="link-item inner-shadow active">Home</a></li>
+                <li><a href="#about" class="link-item outer-shadow hover-in-shadow">About</a></li>
+                <li><a href="#service" class="link-item outer-shadow hover-in-shadow">Services</a></li>
+                <li><a href="#portfolio" class="link-item outer-shadow hover-in-shadow">Portfolio</a></li>
+                <li><a href="#inspiration" class="link-item outer-shadow hover-in-shadow">Inspiration</a></li>
+                <li><a href="#contact" class="link-item outer-shadow hover-in-shadow">Contact me</a></li>
+                @if ( User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <li><a asp-area="Management" asp-controller="Home" asp-action="Index" class="link-item outer-shadow hover-in-shadow">Manage</a></li>
+                }
+            </ul>
+        </div>
+        <!-- Copyright text-->
+        <p class="copyright-text">&copy; HeliosCreation portfolio - @DateTime.Now.Year</p>
+    </nav>
+    <!-- Navigation ends -->
+    <div class="fade-out-effect"></div>
+
+
+    @RenderBody()
+
+<footer>
+    <div class="container-fluid  px-5 py-3 text-center bg-dark h-100 d-flex justify-content-between align-items-center">
+        <div class="row w-100">
+            <div class="col footer-col">
+                <small>&copy; HeliosCreation portfolio - @DateTime.Now.Year</small>
+            </div>
+
+
+            <div class=" social footer-col col">
+                <a href="https://www.linkedin.com/in/quentin-couissinier/" target="_blank">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://github.com/heliosCreation" target="_blank">
+                    <i class="fab fa-github"></i>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+        
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/main.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

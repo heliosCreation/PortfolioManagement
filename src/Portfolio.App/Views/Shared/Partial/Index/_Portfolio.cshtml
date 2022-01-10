@@ -1,0 +1,54 @@
+﻿@model ProjectsViewModel
+
+<section class="portfolio-section section" id="portfolio">
+    <div class="container">
+        <div class="row">
+            <div class="section-title">
+                <h2 data-heading="portfolio">Latest work</h2>
+            </div>
+        </div>
+
+        <!--Portfolio filter start-->
+        <div class="row">
+            <div class="portfolio-filter">
+                <span class="filter-item outer-shadow active" data-target="all">All</span>
+                @foreach (var item in Model.ProjectCategoryListModel)
+                {
+                    <span class="filter-item" data-target="@item.Name">@item.Name</span>
+                }
+            </div>
+        </div>
+        <!--Portfolio filter ends-->
+        <!--Portfolio items starts-->
+        <div class="portfolio-items row">
+            @foreach (var project in Model.ProjectListModel)
+            {
+                var category = project.Category;
+                var galleryUrls = project.GalleryItems.Select(i => i.Url).ToList();
+                var galleryString = String.Join(", ", galleryUrls);
+                <!--portfolio item start-->
+                <div class="portfolio-item"
+                     data-category="@category"
+                     data-description="@project.Description"
+                     data-github="@project.GithubLink"
+                     data-tools="@(String.Join(", ",project.Tools))"
+                     data-name="@project.Name">
+                    <div class="portfolio-item-inner outer-shadow">
+                        <div class="portfolio-item-img">
+                            <img src=@project.CoverUrl
+                                 class="inner-shadow"
+                                 alt="@(project.Name) image"
+                                 data-screenshots="@galleryString" />
+                            <span class="view-project">View Project</span>
+                        </div>
+                        <p class="portfolio-item-title">@project.Name</p>
+                    </div>
+
+                </div>
+                <!--portfolio item end-->
+            }
+        </div>
+        <!--Portfolio items ends-->
+
+    </div>
+</section>

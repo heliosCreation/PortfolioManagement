@@ -1,0 +1,190 @@
+﻿@media(max-width:991px) {
+    .portfolio-section .portfolio-item,
+    .service-section .service-item {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+
+    .home-section .full-screen{
+        text-align:center;
+    }
+}
+
+    @media(max-width:767px) {
+        .home-section .home-text,
+        .home-section .home-img,
+        .about-section .about-info,
+        .about-section .about-img,
+        .about-section .skills .skill-item,
+        .service-section .service-item,
+        .portfolio-section .portfolio-item,
+        .portfolio-popup .description,
+        .portfolio-popup .info,
+        .contact-section .contact-item,
+        .contact-section .cst-w-50{
+            flex: 0 0 100% !important;
+            max-width: 100%;
+        }
+
+        .nav-menu .copyright-text {
+            left: -85px;
+            font-size:14px;
+        }
+        .home-section .home-text {
+            order: 2;
+            text-align: center;
+        }
+
+        .home-section .full-screen {
+            padding: 80px 0 !important;
+        }
+
+        .home-section .home-img .img-box {
+            margin-bottom: 40px;
+            max-width: 350px;
+        }
+
+        .header .theme {
+            top: 12.5%;
+            right: 2.3%;
+        }
+
+        .effect-3 {
+            top: -12%;
+            height: 130px;
+            width: 130px;
+        }
+
+            .effect-3:before {
+                height: 150px;
+                width: 150px;
+            }
+
+        .effect-4 {
+            left: 3%;
+        }
+
+
+        .about-section .about-tabs{
+            display:flex;
+            flex-direction:column;
+        }
+
+        .about-section .about-img {
+            max-width: 350px;
+        }
+
+        .about-section .about-info {
+            text-align: center;
+        }
+
+        .about-section .tab-content.active {
+            padding: 0 30px;
+        }
+
+        .about-section .timeline .timeline-item:nth-child(odd) {
+            padding-right: 15px;
+            padding-left: 75px;
+            padding-bottom: 10px;
+            text-align: left;
+        }
+
+        .about-section .timeline .timeline-item:nth-child(even) {
+            padding-left: 75px;
+            padding-bottom: 10px;
+        }
+
+        .about-section .timeline:before {
+            left: 20px;
+        }
+
+        .about-section .timeline .timeline-item:nth-child(even) i,
+        .about-section .timeline .timeline-item:nth-child(odd) i {
+            right: auto;
+            left: -60px;
+        }
+
+        .about-section .timeline .timeline-item:nth-child(odd) .timeline-item-inner:before {
+            left: -30px;
+        }
+        .portfolio-popup .pp-close {
+            height: 30px;
+            width: 30px;
+            font-size: 25px;
+            line-height: 25px;
+        }
+        .portfolio-popup .pp-main{
+            flex-direction:column;
+        }
+
+        .portfolio-popup .pp-prev,
+        .portfolio-popup .pp-next {
+            position: absolute;
+            height: 30px;
+            width: 30px;
+            top: 90%;
+        }
+
+        .portfolio-popup .pp-prev {
+            left: 30%;
+        }
+        .portfolio-popup .pp-next {
+            right: 30%;
+        }
+        .portfolio-popup .pp-project-details {
+            flex-direction: column;
+        }
+
+        .portfolio-popup .pp-details-inner {
+            padding: 60px 40px 30px;
+        }
+
+        .portfolio-popup .description,
+        .portfolio-popup .info {
+            padding: 0;
+        }
+
+        .pp-project-details {
+            display: flex;
+            word-wrap: break-word
+        }
+
+        .portfolio-popup .pp-main-inner {
+            padding: 70px 20px 50px
+        }
+        .portfolio-popup .pp-project-detail-btn{
+            font-size:15px;
+        }
+
+        .progress-filler span{
+            display:none; 
+        }
+        .service-item p {
+            display: none;
+        }
+        .contact-section .cst-w-50 {
+            padding: 0 30px;
+        }
+        .contact-section .contact-form .submit-btn-container{
+            text-align:center;
+        }
+
+
+    }
+
+    @media(max-width:574px) {
+        .home-section .home-img .img-box {
+            margin-bottom: 35px;
+            max-width: 280px;
+        }
+
+        .home-section .home-text h1 {
+            font-size: 35px;
+        }
+        .effect-1,
+        .effect-2,
+        .effect-3,
+        .effect-4{
+            display:none;
+        }
+    }

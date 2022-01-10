@@ -1,0 +1,42 @@
+﻿@model InspirationModel
+
+
+<form asp-controller="Inspiration" asp-action="create">
+    <div class="modal-header">
+        <span class="fire-container inner-shadow">
+            <i class="fas fa-brain"></i>
+        </span>
+        <h5 class="modal-title">
+            Add an Inspiration item
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="project-category-item">
+
+            <div class="management-item row">
+                <div class="col-12">
+                    <label asp-for="Quote"></label>
+                    <textarea asp-for="Quote" class="form-control"></textarea>
+                    <span asp-validation-for="Quote" class="text-danger"></span>
+                </div>
+
+                <div class="col-12">
+                    <label asp-for="Author"></label>
+                    <input asp-for="Author" class="form-control" />
+                    <span asp-validation-for="Author" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-success">Create</button>
+    </div>
+
+</form>

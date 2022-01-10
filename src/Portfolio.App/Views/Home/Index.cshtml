@@ -1,0 +1,29 @@
+﻿@model IndexViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<main role="main">
+
+    <!-- Home section start-->
+    <partial name="../Shared/Partial/Index/_Home.cshtml" for="@Model.HomeMainTextModel" />
+    <!-- home section end-->
+    <!--About section starts-->
+    <partial name="../Shared/Partial/Index/_About.cshtml" for="@Model.AboutVm"/>
+    <!-- About section ends-->
+    <!--Service section starts-->
+    <partial name="../Shared/Partial/Index/_Service.cshtml" for="@Model.ServicesListModel"/>
+    <!--Service section ends-->
+    <!--Portfolio section start-->
+    <partial name="../Shared/Partial/Index/_Portfolio.cshtml" for="@Model.ProjectVm"/>
+    <!--Portfolio section end-->
+    <!-- Inspiration section start -->
+    <partial name="../Shared/Partial/Index/_Inspiration.cshtml" for="@Model.InspirationListModel"/>
+    <!-- Inspiration section end-->
+    <!--Contact section starts-->
+    <partial name="../Shared/Partial/Index/_Contact.cshtml" for="@Model.Contact" />
+    <!-- Contact section ends -->
+    <!--portfolio popup start-->
+    <partial name="../Shared/Partial/Index/_PortfolioPopup.cshtml" />
+    <!--portfolio popup end-->
+</main>

@@ -1,0 +1,36 @@
+﻿@model ProjectCategoryModel
+
+
+<form asp-controller="ProjectCategory" asp-action="update">
+    <div class="modal-header">
+        <span class="fire-container inner-shadow">
+            <i class="fas fa-sitemap"></i>
+        </span>
+        <h5 class="modal-title">
+            Update your project category
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="project-category-item">
+
+            <div class="management-item row">
+                <input type="hidden" class="management-id" asp-for="Id" />
+                <div class="col-12">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-success">Update</button>
+    </div>
+
+</form>

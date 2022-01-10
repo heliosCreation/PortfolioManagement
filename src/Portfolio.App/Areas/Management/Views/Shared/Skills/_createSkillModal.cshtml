@@ -1,0 +1,88 @@
+﻿@model CrupdateSkillModel
+
+
+<form asp-controller="skills" asp-action="create">
+    <div class="modal-header">
+        <span class="fire-container inner-shadow">
+            <i class="fas fa-fire fire-icon"></i>
+        </span>
+        <h5 class="modal-title">
+            Add a skill
+        </h5>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+            <div class="skill-item">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-2">
+                            <label asp-for="Priority" class="control-label text-left"></label>
+                        </div>
+                        <div class="col-4">
+                            <label asp-for="Name" class="control-label text-left"></label>
+                        </div>
+                        <div class="col-6">
+                            <label asp-for="Level" class="control-label text-left"></label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+                <div class="skill-item">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-2">
+                                <div class="priority">
+                                    <select asp-for="Priority">
+                                        @{
+                                            foreach (var opt in Model.PriorityOptions)
+                                            {
+                                                if (!(opt == Model.PriorityOptions.Last()))
+                                                {
+                                                    <option value="@opt">@opt</option>
+                                                }
+                                                else
+                                                {
+                                                    <option value="@opt" selected>@opt</option>
+                                                }
+                                            }
+                                        }
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <input asp-for="Name" class="form-control skill-name-input" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+
+                            <div class="col-6 range-container">
+                                <div class="range">
+                                    <div class="slider-value">
+                                        <span>50</span>
+                                    </div>
+                                    <div class="field form-group">
+
+                                        <input asp-for="Level" type="range" min="0" max="100" value="0" step="10" class="skill-level-input form-control w-75" />
+                                        <div class="value right">@(Model.Level) %</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+        </div>
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-outline-success">Create</button>
+    </div>
+
+</form>

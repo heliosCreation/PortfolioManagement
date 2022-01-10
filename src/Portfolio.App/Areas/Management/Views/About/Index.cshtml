@@ -1,0 +1,112 @@
+﻿@model AboutModel
+
+<section class="section">
+    <partial name="../Shared/Partial/_alertsPartial.cshtml" />
+
+    <partial name="../Shared/Partial/_modalHolderPartial.cshtml" />
+
+    <div class="container">
+        <div class="section-management outer-shadow">
+
+            <form asp-area="Management" asp-controller="About" asp-action="Update" method="post" class="pb-3">
+
+                <input type="hidden" asp-for="Id" />
+
+                <div class="form-group">
+                    <label asp-for="BoldText" class="col-8 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="BoldText" class="form-control" />
+                        <span asp-validation-for="BoldText" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="MainText" class="col-8 control-label"></label>
+                    <div class="col-md-10">
+                        <textarea rows="4" asp-for="MainText" class="form-control"></textarea>
+                        <span asp-validation-for="MainText" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SideText" class="col-8 control-label"></label>
+                    <div class="col-md-10">
+                        <input asp-for="SideText" class="form-control" />
+                        <span asp-validation-for="SideText" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CvLink" class="col-8 control-label"></label>
+                    <div class="input-group col-md-10">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <input asp-for="ShowCvLink" aria-label="checkbox for following text input" class="custom-option">
+                            </span>
+                            <span class="input-group-text">Do not add</span>
+                        </div>
+                        <input asp-for="CvLink" class="form-control" aria-label="Text to illustrate the utility  of the checkbox">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="LinkedinUrl" class="col-8 control-label"></label>
+                    <div class="input-group col-md-10">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <input asp-for="ShowLinkedinUrl" aria-label="checkbox for following text input" class="custom-option">
+                            </span>
+                            <span class="input-group-text">Do not add</span>
+                        </div>
+                        <input asp-for="LinkedinUrl" class="form-control" aria-label="Text to illustrate the utility  of the checkbox">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="GithubUrl" class="col-8 control-label"></label>
+                    <div class="input-group col-md-10">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">
+                                <input asp-for="ShowGithubUrl" aria-label="checkbox for following text input" class="custom-option">
+                            </span>
+                            <span class="input-group-text">Do not add</span>
+                        </div>
+                        <input asp-for="GithubUrl" class="form-control" aria-label="Text to illustrate the utility  of the checkbox">
+                    </div>
+                </div>
+
+                <div class="form-group w-25 pb-3 m-auto">
+                    <input class="form-control btn-success" type="submit" value="Send" />
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+@section Scripts{
+
+    <script>
+
+        (() => {
+            setSideNav("About");
+
+            options = document.querySelectorAll(".custom-option");
+
+            options.forEach((opt) => {
+                let optionText = opt.parentElement.nextSibling.nextElementSibling;
+
+                if (opt.checked) {
+                    optionText.innerHTML = "Add"
+                }
+                opt.addEventListener("change", () => {
+                    if (optionText.innerHTML != "Add") {
+                        optionText.innerHTML = "Add"
+                    }
+                    else {
+                        optionText.innerHTML = "Do not add"
+                    }
+                })
+            });
+        })()
+
+    </script>
+}
