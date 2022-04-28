@@ -12,6 +12,7 @@ namespace Portfolio.Application.Models.Index
         public List<string> Tools { get; set; }
         public string GithubLink { get; set; }
         public string CoverUrl { get; set; }
+        public DateTime CreatedDate { get; set; }
         public List<GalleryItemModel> GalleryItems { get; set; } = new List<GalleryItemModel>();
 
     }

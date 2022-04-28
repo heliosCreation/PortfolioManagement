@@ -60,7 +60,6 @@
         <div class="row justify-content-center">
             <div class="about-tabs">
                 <span class="tab-item outer-shadow active" data-target=".skills">Skills <i class="fas fa-fire"></i> </span>
-                <span class="tab-item" data-target=".experience">Experience <i class="fas fa-briefcase"></i></span>
                 <span class="tab-item" data-target=".education">Education <i class="fas fa-graduation-cap"></i> </span>
             </div>
         </div>
@@ -87,32 +86,7 @@
         </div>
         <!--Skill content end-->
         <!--Experience timeline content start-->
-        <div class="row">
-            <div class="experience tab-content">
-                <div class="row">
-                    <div class="timeline">
-                        <div class="row">
-                            @foreach (var xp in Model.ExperienceListModel)
-                            {
-                                <!-- timeline item start-->
-                                <div class="timeline-item">
-                                    <div class="timeline-item-inner outer-shadow">
-                                        <i class="fas fa-briefcase"></i>
-                                        <span> @xp.From.ToShortDateString() - @xp.To.ToShortDateString()</span>
-                                        <h3>@xp.PositionName</h3>
-                                        <h4>@xp.CompanyName</h4>
-                                        <p>
-                                            @xp.Details
-                                        </p>
-                                    </div>
-                                </div>
-                                <!--timeline item end-->
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
         <!--Experience timeline content ends-->
         <!--Education Timeline content start-->
         <div class="row">
@@ -126,7 +100,7 @@
                                 <div class="timeline-item">
                                     <div class="timeline-item-inner outer-shadow">
                                         <i class="fas fa-graduation-cap"></i>
-                                        <span>@study.From.ToShortDateString() - @study.To.ToShortDateString()</span>
+                                        <span>@study.From.ToString("dd/MM/yyyy") - @study.To.ToString("dd/MM/yyyy")</span>
                                         <h3>@study.Diploma</h3>
                                         <h4>@study.SchoolName</h4>
                                         @*<p>

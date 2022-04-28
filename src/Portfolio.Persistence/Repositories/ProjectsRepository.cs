@@ -32,6 +32,7 @@ namespace Portfolio.Persistence.Repositories
             var @base = await _dbContext.Projects
                 .Include(p => p.GalleryItems)
                 .AsNoTracking()
+                .OrderByDescending(p => p.CreatedDate)
                 .ToListAsync();
 
             foreach (var item in @base)
